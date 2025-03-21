@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Scout</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            width: 260px;
+            padding: 8px;
+            margin: 0;
+            text-align: center;
+        }
+        h2 {
+            font-size: 18px;
+            color: #0078d4;
+            margin-bottom: 15px;
+        }
+        p {
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+        form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        label {
+            font-size: 12px;
+            margin-bottom: 4px;
+            text-align: left;
+            width: 100%;
+        }
+        input {
+            width: 75%; /* Adjust the width here */
+            padding: 6px;
+            font-size: 12px;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .button {
+            padding: 6px 10px;
+            font-size: 12px;
+            background-color: #0078d4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 12px;
+            width: 100%;
+        }
+        .button:hover {
+            background-color: #005bb5;
+        }
+        #status {
+            margin-top: 16px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="refreshMessage" style="display:none; color: red; font-size: 14px; margin-bottom: 15px;">
+        Please refresh your LinkedIn page for the first time installation.
+    </div>
+    
+    <h2>Job Scout Shortcuts</h2>
+    <form id="shortcuts">
+        <label for="pJob">Previous Job Posting:</label>
+        <input type="text" id="pJob" name="pJob" placeholder="Please enter a letter">
+
+        <label for="nJob">Next Job Posting:</label>
+        <input type="text" id="nJob" name="nJob"placeholder="Please enter a letter">
+
+        <label for="pPage">Previous Page:</label>
+        <input type="text" id="pPage" name="pPage"placeholder="Please enter a letter">
+
+        <label for="nPage">Next Page:</label>
+        <input type="text" id="nPage" name="nPage"placeholder="Please enter a letter">
+
+        <label for="dJob">Delete Job:</label>
+        <input type="text" id="dJob" name="dJob"placeholder="Please enter a letter">
+
+        <label for="sJob">Save Job:</label>
+        <input type="text" id="sJob" name="sJob"placeholder="Please enter a letter">
+
+        <label for="aJob">Apply for Job:</label>
+        <input type="text" id="aJob" name="aJob"placeholder="Please enter a letter">
+        
+
+
+    </form>
+    
+    <button class="button" id="saveShortCuts">Save Shortcuts</button>
+    <button class="button" id="toggleBtn">Disable Shortcuts</button>
+    <div id="status"></div>
+   
+    <script src="popup.js"></script>
+</body>
+</html>
