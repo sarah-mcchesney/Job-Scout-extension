@@ -391,7 +391,7 @@ function handshakeShortcuts(e) {
 
 
 function checkAndExecute() {
-    if (window.location.href.startsWith("https://www.linkedin.com/jobs/search/") || window.location.href.startsWith("https://www.indeed.com/jobs") || window.location.href.includes("joinhandshake")) {
+    if (window.location.href.startsWith("https://www.linkedin.com/jobs/search/") || window.location.href.startsWith("https://www.indeed.com/jobs") || window.location.href.includes("joinhandshake.com/stu/postings")) {
         recalculateJobs();
         loadKeybindings();
         logCurrentJobIdHandshake();
@@ -406,11 +406,11 @@ setInterval(checkAndExecute, 200);
 document.addEventListener('keydown', function (e) {
     const currentUrl = window.location.href;
 
-    if (currentUrl.includes('linkedin')) {
+    if (currentUrl.startsWith("https://www.linkedin.com/jobs/search/")) {
         linkedinShortcuts(e);
-    } else if (currentUrl.includes('indeed')) {
+    } else if (currentUrl.startsWith("https://www.indeed.com/jobs")) {
         indeedShortcuts(e);
-    } else if (currentUrl.includes('joinhandshake')) {
+    } else if (currentUrl.includes("joinhandshake.com/stu/postings")) {
         handshakeShortcuts(e);
 
     }
