@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Job Scout",
-  "version": "1.4",
+  "version": "1.4.2",
   "description": "Navigate LinkedIn, Indeed, and Handshake jobs using keyboard shortcuts to quickly move between, delete, save, and apply for job.",
   
   "icons": {
@@ -22,7 +22,7 @@
     }
   ],
 "background": {
-    "service_worker": "service-worker.js"
+    "scripts": "service-worker.js"
   },
   
   "action": {

@@ -199,7 +199,6 @@ observer.observe(document.body, {
 });
 
 
-
 let shortcutKeys = {
     pJob: null,
     nJob: null,
@@ -212,9 +211,6 @@ let shortcutKeys = {
 
 
 
-
-
-
 function indeedShortcuts(e) {
     e = e || window.event;
     var key = e.key;
@@ -223,34 +219,25 @@ function indeedShortcuts(e) {
     }
     var element = document.querySelector('[data-testid="pagination-page-current"]');
     var element = element.parentElement.firstChild;
-    console.log("current: ", element);
-    //if there is only one page, then disable next/prev pages so it doesn't throw error 
     if (element) {
-        const previousPage = element.parentElement.previousElementSibling?.firstChild || null;
-        const nextPage = element.parentElement.nextElementSibling?.firstChild || null;
-        console.log(previousPage);
-        console.log(nextPage);
-
+        const previousPage = element.parentElement.previousElementSibling ? .firstChild || null;
+        const nextPage = element.parentElement.nextElementSibling ? .firstChild || null;
         if (key === shortcutKeys.pPage) {
             previousPage.click();
-            setTimeout(recalculateJobs, 30);
-
+            setTimeout(logCurrentJobIdIndeed, 30);
         }
         if (key === shortcutKeys.nPage) {
             nextPage.click();
-            setTimeout(recalculateJobs, 30);
-
+            setTimeout(logCurrentJobIdIndeed, 30);
         }
     }
 
     if (key === shortcutKeys.pJob) {
         if (previousJob) {
-
             const indeedPrev = previousJob.querySelector('[data-mobtk]');
             indeedPrev.click();
-
-
-            setTimeout(recalculateJobs, 30);
+            indeedPrev.scrollIntoView();
+            setTimeout(logCurrentJobIdIndeed, 30);
         }
     }
 
@@ -259,11 +246,12 @@ function indeedShortcuts(e) {
         if (nextJob) {
 
             const indeedNext = nextJob.querySelector('[data-mobtk]');
+
             indeedNext.click();
 
+            indeedNext.scrollIntoView();
 
-
-            setTimeout(recalculateJobs, 30);
+            setTimeout(logCurrentJobIdIndeed, 30);
         }
 
     }
@@ -277,7 +265,7 @@ function indeedShortcuts(e) {
         deleteButton.click();
 
         e.click();
-        setTimeout(recalculateJobs, 30);
+        setTimeout(logCurrentJobIdIndeed, 30);
     }
     if (key === shortcutKeys.sJob) {
 
@@ -286,15 +274,22 @@ function indeedShortcuts(e) {
         var indeedSave = rightPane[0].querySelector('[data-dd-action-name]');
         indeedSave.click();
     }
+
     if (key == shortcutKeys.aJob) {
 
-        var rightPane = document.getElementsByClassName('jobsearch-RightPane');
-        var indeedApply = rightPane[0].querySelector('[data-testid="indeed-apply-widget"]');
-        indeedApply.click();
+        var indeedApply = document.querySelector('[data-testid="indeed-apply-widget"]');
+
+        if (!indeedApply) {
+            indeedApply = document.querySelector('[contenthtml="Apply now"]');
+        }
+
+
+        if (indeedApply) {
+            indeedApply.click();
+            setTimeout(logCurrentJobIdIndeed, 30);
+        }
     }
 }
-
-
 
 
 function logCurrentJobIdHandshake() {
@@ -337,32 +332,35 @@ function handshakeShortcuts(e) {
     if (extensionEnabled === false) {
         return;
     }
-   
 
-    
-        const previousPage =document.querySelector('[aria-label="previous page"]');   
-        const nextPage =   document.querySelector('[aria-label="next page"]');   
 
-        if(key=== shortcutKeys.pPage){
-            previousPage.click();
-            setTimeout(logCurrentJobIdHandshake, 30);  
 
-        }
-        if(key=== shortcutKeys.nPage){
-            nextPage.click();
-            setTimeout(logCurrentJobIdHandshake, 30);  
-        }
-    
+    const previousPage = document.querySelector('[aria-label="previous page"]');
+    const nextPage = document.querySelector('[aria-label="next page"]');
+
+    if (key === shortcutKeys.pPage) {
+        previousPage.click();
+        setTimeout(logCurrentJobIdHandshake, 30);
+
+    }
+    if (key === shortcutKeys.nPage) {
+        nextPage.click();
+        setTimeout(logCurrentJobIdHandshake, 30);
+    }
+
     if (key === shortcutKeys.pJob) {
         if (previousJob) {
             previousJob.click();
+            previousJob.scrollIntoView();
             logCurrentJobIdHandshake();
         }
     }
     if (key === shortcutKeys.nJob) {
         if (nextJob) {
-
             nextJob.click();
+            nextJob.scrollIntoView();
+
+
             logCurrentJobIdHandshake();
         }
     }
@@ -381,7 +379,7 @@ function handshakeShortcuts(e) {
 
     }
     if (key == shortcutKeys.aJob) {
-        (currentRight.querySelector('[aria-label="Apply"]') || currentRight.querySelector('[aria-label="Apply Externally"]'))?.click();
+        (currentRight.querySelector('[aria-label="Apply"]') || currentRight.querySelector('[aria-label="Apply Externally"]')) ? .click();
 
 
         logCurrentJobIdHandshake();
@@ -391,10 +389,11 @@ function handshakeShortcuts(e) {
 
 
 function checkAndExecute() {
-    if (window.location.href.startsWith("https://www.linkedin.com/jobs/search/") || window.location.href.startsWith("https://www.indeed.com/jobs") || window.location.href.includes("joinhandshake.com/stu/postings")) {
+    if (window.location.href.startsWith("https://www.linkedin.com/jobs/search/") || window.location.href.startsWith("https://www.indeed.com/") || window.location.href.includes("joinhandshake.com/stu/postings")) {
         recalculateJobs();
         loadKeybindings();
         logCurrentJobIdHandshake();
+        logCurrentJobIdIndeed();
     }
 }
 
@@ -408,7 +407,7 @@ document.addEventListener('keydown', function (e) {
 
     if (currentUrl.startsWith("https://www.linkedin.com/jobs/search/")) {
         linkedinShortcuts(e);
-    } else if (currentUrl.startsWith("https://www.indeed.com/jobs")) {
+    } else if (currentUrl.startsWith("https://www.indeed.com/")) {
         indeedShortcuts(e);
     } else if (currentUrl.includes("joinhandshake.com/stu/postings")) {
         handshakeShortcuts(e);

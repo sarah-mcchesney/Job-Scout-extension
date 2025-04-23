@@ -8,10 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     chrome.storage.local.get(["isFirstTime"], function (res) {
         if (res.isFirstTime === "true") {
-            // Display the refresh message if it's the first time
             refreshMessage.style.display = "block";
-
-            // Update isFirstTime to false after showing the message
             chrome.storage.local.set({ isFirstTime: "false" }, function () {
             });
         }
